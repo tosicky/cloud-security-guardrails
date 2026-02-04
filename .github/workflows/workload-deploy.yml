@@ -1,0 +1,31 @@
+name: workload-deploy
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["infra/live/workload/**", "infra/modules/**"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy_workloads:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        account_id: ["REPLACE_WITH_WORKLOAD_ACCOUNT_ID_1", "REPLACE_WITH_WORKLOAD_ACCOUNT_ID_2"]
+    defaults:
+      run:
+        working-directory: infra/live/workload
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ matrix.account_id }}:role/github-workload-deployer
+          aws-region: us-east-1
+      - run: terraform init
+      - run: terraform apply -auto-approve

@@ -1,0 +1,28 @@
+name: security-platform
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["infra/live/security/**", "infra/modules/**"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  apply_security_platform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/live/security
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::012736367377:role/github-security-platform
+          aws-region: us-east-1
+      - run: terraform init
+      - run: terraform apply -auto-approve

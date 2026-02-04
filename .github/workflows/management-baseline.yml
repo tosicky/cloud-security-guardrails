@@ -1,0 +1,46 @@
+name: management-baseline
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: ["infra/live/management/**", "infra/modules/**"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy_workload_baseline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        account_id: ["REPLACE_WITH_WORKLOAD_ACCOUNT_ID_1", "REPLACE_WITH_WORKLOAD_ACCOUNT_ID_2"]
+    defaults:
+      run:
+        working-directory: infra/live/management
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      # Bootstrap step: you need *some* role to assume initially in the workload account.
+      # Commonly this is a pre-created "bootstrap" role, or you run once manually with admin.
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.MANAGEMENT_ACCOUNT_ID }}:role/github-org-bootstrap
+          aws-region: us-east-1
+      
+      - run: aws sts assume-role \
+            --role-arn arn:aws:iam::${{ matrix.account_id }}:role/OrganizationAccountAccessRole \
+            --role-session-name bootstrap-workload-${{ matrix.account_id }}
+
+
+      - run: terraform init
+      - run: terraform apply -auto-approve
+        env:
+          TF_VAR_github_org: YOUR_ORG
+          TF_VAR_github_repo: YOUR_REPO
+          TF_VAR_branch: main
