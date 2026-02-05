@@ -1,8 +1,9 @@
-resource "aws_iam_role" "github_org_bootstrap" {
-  name               = "github-org-bootstrap"
-  assume_role_policy = data.aws_iam_policy_document.github_trust.json
-  max_session_duration = 1800  # 30 minutes
-}
+# resource "aws_iam_role" "github_org_bootstrap" {
+#   name               = "github-org-bootstrap"
+#   assume_role_policy = var.github_trust_policy
+#   max_session_duration = 1800  # 30 minutes
+# }
+
 
 data "aws_iam_policy_document" "bootstrap_permissions" {
   statement {
@@ -16,10 +17,10 @@ data "aws_iam_policy_document" "bootstrap_permissions" {
   }
 }
 
-resource "aws_iam_role_policy" "bootstrap_inline" {
-  role   = aws_iam_role.github_org_bootstrap.id
-  policy = data.aws_iam_policy_document.bootstrap_permissions.json
-}
+# resource "aws_iam_role_policy" "bootstrap_inline" {
+#   role   = aws_iam_role.github_org_bootstrap.id
+#   policy = data.aws_iam_policy_document.bootstrap_permissions.json
+# }
 
 
 data "aws_iam_policy_document" "deployer_policy" {
