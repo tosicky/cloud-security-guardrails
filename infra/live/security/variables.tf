@@ -6,7 +6,6 @@ variable "region" {
 # Your Audit/Security account ID (12 digits)
 variable "audit_account_id" { 
     type = string 
-    default = "012736367377" 
     }
 
 # Log archive bucket already created by Control Tower; if you manage here, set a name
@@ -30,3 +29,13 @@ variable "github_repo" {
     type = string 
     default = "security-platform-repo" 
     }
+
+variable "dynamodb_lock_table" {
+  default = "terraform-locks"
+  type = string
+}
+
+variable "branch" {
+  default = "main"
+  type = string
+}

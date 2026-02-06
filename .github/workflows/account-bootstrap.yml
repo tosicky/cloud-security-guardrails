@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
-    paths: ["infra/live/management/**", "infra/modules/**"]
+    paths: ["infra/live/management-bootstrap/**", "infra/modules/**"]
 
 permissions:
   contents: read
@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        account_id: ["REPLACE_WITH_WORKLOAD_ACCOUNT_ID_1", "REPLACE_WITH_WORKLOAD_ACCOUNT_ID_2"]
+        account_id: ["${{ env.WORKLOAD_ACCOUNT_ID_1 }}", "${{ env.WORKLOAD_ACCOUNT_ID_2 }}"]
     defaults:
       run:
-        working-directory: infra/live/management
+        working-directory: infra/live/management-bootstrap
 
     steps:
       - uses: actions/checkout@v4
@@ -44,3 +44,6 @@ jobs:
           TF_VAR_github_org: YOUR_ORG
           TF_VAR_github_repo: YOUR_REPO
           TF_VAR_branch: main
+          TF_VAR_management_account_id: ${{ env.MANAGEMENT_ACCOUNT_ID }}
+          TF_VAR_audit_account_id: ${{ env.AUDIT_ACCOUNT_ID }}
+          TF_VAR_workload_account_id: ${{ matrix.account_id }}

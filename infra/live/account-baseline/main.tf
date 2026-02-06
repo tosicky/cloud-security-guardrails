@@ -1,6 +1,5 @@
 locals {
-  deployer_role_name = "github-workload-deployer"
-  bootstrap_role_name = "github-org-bootstrap"
+  bootstrap_role_name = "github-workload-deployer"
 }
 
 module "github_oidc_bootstrap" {
@@ -8,7 +7,7 @@ module "github_oidc_bootstrap" {
   github_org  = var.github_org
   github_repo = var.github_repo
   role_name   = local.bootstrap_role_name
-  policy_json = data.aws_iam_policy_document.bootstrap_permissions.json
+  policy_json = data.aws_iam_policy_document.deployer_policy.json
   branch      = var.branch
 }
 

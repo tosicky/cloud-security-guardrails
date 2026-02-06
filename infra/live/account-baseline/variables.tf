@@ -28,3 +28,18 @@ variable "branch" {
   default = "main"
   type    = string
 }
+
+variable "management_account_id" {
+  default = ""
+  type = string
+}
+
+variable "dynamodb_lock_table" {
+  default = "terraform-locks"
+  type = string
+}
+
+variable "audit_account_id" {
+  default = ""
+  type = string
+}
