@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        account_id: ["${{ secrets.WORKLOAD_ACCOUNT_ID_1 }}"]
+        account_id: ["435976456860"]
     defaults:
       run:
         working-directory: infra/live/account-baseline
