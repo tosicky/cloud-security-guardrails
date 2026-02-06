@@ -41,7 +41,7 @@ jobs:
             -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
             -backend-config="dynamodb_table=${{ vars.TF_LOCK_TABLE }}" \
             -backend-config="region=us-east-1" \
-            -backend-config="key=baseline/${{ matrix.account_id }}.tfstate"
+            -backend-config="key=account-baseline/${{ matrix.account_id }}/${{ matrix.account_id }}.tfstate"
 
       - name: Terraform apply
         run: terraform apply -auto-approve
