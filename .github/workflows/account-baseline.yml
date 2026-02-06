@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        account_id: ["${{ env.WORKLOAD_ACCOUNT_ID_1 }}", "${{ env.WORKLOAD_ACCOUNT_ID_2 }}"]
+        account_id: ["${{ env.WORKLOAD_ACCOUNT_ID_1 }}"]
     defaults:
       run:
         working-directory: infra/live/account-baseline
