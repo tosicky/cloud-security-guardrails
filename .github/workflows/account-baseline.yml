@@ -12,12 +12,11 @@ permissions:
 
 jobs:
   deploy_workload_baseline:
-    # environment: CloudSec
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        account_id: ${{ fromJSON(vars.WORKLOAD_ACCOUNTS) }}
+        account_id: ${{ fromJSON(vars.WORKLOAD_ACCOUNTS) || '["435976456860"]'}}
 
     defaults:
       run:
