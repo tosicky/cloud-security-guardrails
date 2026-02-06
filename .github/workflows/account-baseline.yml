@@ -12,11 +12,11 @@ permissions:
 
 jobs:
   deploy_workload_baseline:
-    environment: CloudSec
+    # environment: CloudSec
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        account_id: ["435976456860"]
+        account_id: ["${{ vars.WORKLOAD_ACCOUNT_ID_1 }}"]
     defaults:
       run:
         working-directory: infra/live/account-baseline
@@ -31,7 +31,7 @@ jobs:
       # Commonly this is a pre-created "bootstrap" role, or you run once manually with admin.
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ env.MANAGEMENT_ACCOUNT_ID }}:role/github-org-bootstrap
+          role-to-assume: arn:aws:iam::${{ vars.MANAGEMENT_ACCOUNT_ID }}:role/github-org-bootstrap
           aws-region: us-east-1
       
       - run: aws sts assume-role \
@@ -42,9 +42,9 @@ jobs:
       - run: terraform init
       - run: terraform apply -auto-approve
         env:
-          TF_VAR_github_org: YOUR_ORG
-          TF_VAR_github_repo: YOUR_REPO
+          TF_VAR_github_org: tosicky
+          TF_VAR_github_repo: cloud-security-guardrails
           TF_VAR_branch: main
-          TF_VAR_management_account_id: ${{ env.MANAGEMENT_ACCOUNT_ID }}
-          TF_VAR_audit_account_id: ${{ env.AUDIT_ACCOUNT_ID }}
+          TF_VAR_management_account_id: ${{ vars.MANAGEMENT_ACCOUNT_ID }}
+          TF_VAR_audit_account_id: ${{ vars.AUDIT_ACCOUNT_ID }}
           TF_VAR_workload_account_id: ${{ matrix.account_id }}
