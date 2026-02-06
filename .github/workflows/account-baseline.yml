@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        account_id: ${{ fromJSON(vars.WORKLOAD_ACCOUNTS) || '["435976456860"]'}}
+        account_id: ["435976456860"]
 
     defaults:
       run:
