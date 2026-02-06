@@ -23,11 +23,11 @@ variable "kms_admin_arns" {
 # GitHub OIDC repo scope
 variable "github_org" { 
     type = string 
-    default = "YOUR_ORG" 
+    default = "tosicky" 
     }
 variable "github_repo" { 
     type = string 
-    default = "security-platform-repo" 
+    default = "cloud-security-guardrails" 
     }
 
 variable "dynamodb_lock_table" {

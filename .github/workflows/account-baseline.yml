@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
-    paths: ["infra/live/management-bootstrap/**", "infra/modules/**"]
+    paths: ["infra/live/account-baseline/**", "infra/modules/**"]
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
         account_id: ["${{ env.WORKLOAD_ACCOUNT_ID_1 }}", "${{ env.WORKLOAD_ACCOUNT_ID_2 }}"]
     defaults:
       run:
-        working-directory: infra/live/management-bootstrap
+        working-directory: infra/live/account-baseline
 
     steps:
       - uses: actions/checkout@v4
