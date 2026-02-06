@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   deploy_workload_baseline:
+    environment: CloudSec
     runs-on: ubuntu-latest
 
     strategy:
