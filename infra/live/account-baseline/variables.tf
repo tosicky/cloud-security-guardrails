@@ -30,7 +30,6 @@ variable "branch" {
 }
 
 variable "management_account_id" {
-  default = ""
   type = string
 }
 
@@ -40,6 +39,5 @@ variable "dynamodb_lock_table" {
 }
 
 variable "audit_account_id" {
-  default = ""
   type = string
 }

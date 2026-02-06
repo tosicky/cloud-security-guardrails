@@ -72,39 +72,39 @@ data "aws_iam_policy_document" "account_bootstrap_permissions" {
 }
 
 data "aws_iam_policy_document" "deployer_policy" {
-  statement {
-    sid    = "TfStateListBucketScoped"
-    effect = "Allow"
-    actions = ["s3:ListBucket"]
-    # Tighten to your state bucket(s) if applicable; otherwise remove this block.
-    resources = ["arn:aws:s3:::<STATE_BUCKET>"]
-    condition {
-        test = "StringLike"
-        variable = "s3:prefix"
-        values = ["workloads/${var.workload_account_id}/*"]
-        }
-  }
+  # statement {
+  #   sid    = "TfStateListBucketScoped"
+  #   effect = "Allow"
+  #   actions = ["s3:ListBucket"]
+  #   # Tighten to your state bucket(s) if applicable; otherwise remove this block.
+  #   resources = ["arn:aws:s3:::cloud-sec-org-bucket"]
+  #   condition {
+  #       test = "StringLike"
+  #       variable = "s3:prefix"
+  #       values = ["workloads/${var.workload_account_id}/*"]
+  #       }
+  # }
 
-  statement {
-    sid    = "TfStateObjectAccessScoped"
-    effect = "Allow"
-    actions = [
-      "s3:GetObject", "s3:PutObject", "s3:DeleteObject"
-    ]
-    # Tighten to your state bucket(s) if applicable; otherwise remove this block.
-    resources = ["arn:aws:s3:::<STATE_BUCKET>/workloads/${var.workload_account_id}/*"]
-  }
+  # statement {
+  #   sid    = "TfStateObjectAccessScoped"
+  #   effect = "Allow"
+  #   actions = [
+  #     "s3:GetObject", "s3:PutObject", "s3:DeleteObject"
+  #   ]
+  #   # Tighten to your state bucket(s) if applicable; otherwise remove this block.
+  #   resources = ["arn:aws:s3:::cloud-sec-org-bucket/workloads/${var.workload_account_id}/*"]
+  # }
 
-  statement {
-    sid    = "TfLockTableAccess"
-    effect = "Allow"
-    actions = [
-      "dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem",
-      "dynamodb:UpdateItem", "dynamodb:DescribeTable"
-    ]
-    # Tighten to your state bucket(s) if applicable; otherwise remove this block.
-    resources = ["arn:aws:dynamodb:us-east-1:${var.audit_account_id}:table/${var.dynamodb_lock_table}"]
-  }
+  # statement {
+  #   sid    = "TfLockTableAccess"
+  #   effect = "Allow"
+  #   actions = [
+  #     "dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem",
+  #     "dynamodb:UpdateItem", "dynamodb:DescribeTable"
+  #   ]
+  #   # Tighten to your state bucket(s) if applicable; otherwise remove this block.
+  #   resources = ["arn:aws:dynamodb:us-east-1:${var.audit_account_id}:table/${var.dynamodb_lock_table}"]
+  # }
 
   # statement {
   #   sid    = "KmsForTfStateAccess"
