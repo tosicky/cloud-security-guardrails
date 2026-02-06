@@ -5,7 +5,6 @@ variable "region" {
 
 variable "workload_account_id" { 
     type = string 
-    default = "" 
     }
 
 # KMS admins (e.g., security admin role ARNs)
