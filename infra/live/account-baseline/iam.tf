@@ -1,7 +1,7 @@
 resource "aws_iam_role" "account_bootstrap_role" {
   name               = "account-bootsrap-role"
   assume_role_policy = data.aws_iam_policy_document.account_bootstrap_trust_policy.json
-  max_session_duration = 1800  # 30 minutes
+  max_session_duration = 3600  # 30 minutes
 }
 
 resource "aws_iam_role_policy" "accounts_bootstrap_inline" {
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "account_bootstrap_permissions" {
       "iam:UpdateOpenIDConnectProviderThumbprint",
       "iam:GetOpenIDConnectProvider"
     ]
-    resources = "*"
+    resources = ["*"]
   }
 
   statement {
@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "account_bootstrap_permissions" {
       "iam:GetPolicy",
       "iam:ListPolicies"
     ]
-    resources = "*"
+    resources = ["*"]
   }
 }
 
