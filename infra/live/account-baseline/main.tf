@@ -9,6 +9,7 @@ module "github_oidc_bootstrap" {
   role_name   = local.bootstrap_role_name
   policy_json = data.aws_iam_policy_document.deployer_policy.json
   branch      = var.branch
+  environment = var.environment
 }
 
 # module "github_oidc_deployer" {

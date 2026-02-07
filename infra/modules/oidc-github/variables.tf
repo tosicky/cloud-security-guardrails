@@ -6,3 +6,7 @@ variable "branch" {
     type = string
     default = "main" 
     }
+variable "environment" {
+    default = "CloudSec"
+    type = string
+}

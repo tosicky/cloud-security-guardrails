@@ -39,3 +39,7 @@ variable "branch" {
   default = "main"
   type = string
 }
+
+variable "environment" {
+    type = string
+}

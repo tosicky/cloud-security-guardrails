@@ -42,4 +42,5 @@ module "github_oidc_bootstrap" {
   role_name   = local.role_name
   policy_json = data.aws_iam_policy_document.github_security_platform.json
   branch      = var.branch
+  environment = var.environment
 }
