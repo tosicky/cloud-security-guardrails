@@ -5,7 +5,8 @@ data "aws_iam_policy_document" "bootstrap_permissions" {
     effect = "Allow"
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::${var.workload_account_id}:role/OrganizationAccountAccessRole"
+      "arn:aws:iam::${var.workload_account_id}:role/OrganizationAccountAccessRole",
+      "arn:aws:iam::${var.workload_account_id}:role/account-bootstrap-role"
       # add more workload account IDs here if needed
     ]
   }

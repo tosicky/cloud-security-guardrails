@@ -1,5 +1,5 @@
 resource "aws_iam_role" "account_bootstrap_role" {
-  name               = "account-bootsrap-role"
+  name               = "account-bootstrap-role"
   assume_role_policy = data.aws_iam_policy_document.account_bootstrap_trust_policy.json
   max_session_duration = 3600  # 30 minutes
 }

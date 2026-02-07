@@ -1,7 +1,7 @@
 provider "aws" {
   region = var.region
-  # profile = "iamadmin-general"
-  # assume_role {
-  #   role_arn = "arn:aws:iam::061451663077:role/github-org-bootstrap"
-  # }
+  profile = "iamadmin-general"
+  assume_role {
+    role_arn = "arn:aws:iam::${var.workload_account_id}:role/OrganizationAccountAccessRole"
+  }
 }
